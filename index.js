@@ -88,7 +88,7 @@ console.log(r);
 Then, add control flow within your function such that IF creditScore is above 740, interest rate drops by 0.5%, if credit score is below 660, interest rate increases by 0.5% and if credit score is anywhere between 660 and 740 interest rate doesn't change.
 */
 
-console.log("\n\n*****  Task 5  *****\n");
+
 let mortgageCalculator2 = function (P, I, N, creditScore){
 	if (creditScore > 740){
 		I = I * 0.95;
@@ -143,7 +143,7 @@ function variableInterestRate(P, I, N){
 		monthlyInterestRate = (I + i) /12;
 		monthlyRate = P * ((monthlyInterestRate * Math.pow(1 + monthlyInterestRate, periods))/(Math.pow( 1 + monthlyInterestRate, periods)  - 1));
 	monthlyRate = Number(monthlyRate).toFixed(2);
-	console.log(name + " with an interest rate of " + String(Number(I + i).toFixed(3)) + ", your monthly rate is " + String(monthlyRate));
+	console.log(name + ", with an interest rate of " + String(Number(I + i).toFixed(3)) + ", your monthly rate is " + String(monthlyRate));
 	}
 }
 variableInterestRate(200000, 0.04, 30);
@@ -163,3 +163,52 @@ variableInterestRate(200000, 0.04, 30);
 
 
 /* 🏡  Refactor your `variableInterestRate()` function to accept an array of interest rates (make sure to copy and paste as to not lose your work!) */
+
+
+console.log("\n\n*****  Stretch  *****\n");
+
+console.log("\nGet ready to type!!!");
+
+function variableInterestRate1(P, I, N, name){
+	const periods = N * 12;
+	let monthlyInterestRate;
+	let monthlyRate;
+	let message = "Ok, " + name + ", when it comes to your mortgage;\n";
+
+	for (let i = -0.02; i < 0.025; i += 0.005){
+		monthlyInterestRate = (I + i) /12;
+		monthlyRate = P * ((monthlyInterestRate * Math.pow(1 + monthlyInterestRate, periods))/(Math.pow( 1 + monthlyInterestRate, periods)  - 1));
+	monthlyRate = Number(monthlyRate).toFixed(2);
+	message = message + "\n" + "With an interest rate of " + String(Number(I + i).toFixed(3)) + ", your monthly rate is " + String(monthlyRate);
+	}
+	return(message);
+}
+
+let play = "yes";
+let a1 = '';
+let a2 = '0';
+let name1 = '';
+let message = '';
+while (play[0] !== 'n' && play[0] !== 'N'){
+	name1 = window.prompt("Hi! What's your name?");
+	a1 = window.prompt("Hi, " + name1 + "! Are you interested in buying a home?");
+	if (a1[0] == "y" || a1[0] == "Y"){
+		a2 = window.prompt("That is so exciting!!!\nCan you give me a number for how much this house might cost?\n\n(just numbers... no commas please)");
+	}
+	else if (a1[0] == "n" || a1[0] == "N"){
+		a1 = window.prompt("I get it... Houses are expensive!! Do you want to speculate how much your mortgage would cost if you could buy one?");
+		if (a1[0] == "y" || a1[0] == "Y"){
+			a2 = window.prompt("Ok... give me a number for how much this house might cost?\n\n(just numbers... no commas please)");
+		}
+		else{
+			a2 = window.prompt("You are persistent... would you play along with me anyways?? \ngive me a number for how much this house might cost?\n\n(just numbers... no commas please)");
+	}
+	}
+	else {
+		play = window.prompt("I'm so sorry, I didn't really understand what you said... would you like to try again?");
+	}
+	if (Number(a2) > 0){
+		message = variableInterestRate1(Number(a2), 0.04, 30, name1);
+		play = window.prompt(message + "\n\n Pretty Cool, Right?\n\nWould you like to play again??");
+	}
+}
